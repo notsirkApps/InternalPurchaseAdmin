@@ -6,7 +6,7 @@ Author: Kriston Sanders
 
 <h2> Purpose </h2>
 Internal Purchase Admin is intended to assist budget managers in lare organizations, such as a university, authorize and track internal spending for services, such as a campus book store, with internal GL (general ledger) accounts. Features available to managers:<br>
-- Add/remove users to internal accounts
+- Add/remove users to internal accounts<br>
 - Audit usage<br>
 - Track account membership changes<br>
 
