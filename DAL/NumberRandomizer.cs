@@ -1,18 +1,9 @@
 ﻿// AUTHOR: Kriston Sanders
 // DATE: Oct 2019
 
-// precondition/postconditions?
-
-/* INTERFACE INVARIANT: 
-    Child class if imageCollage. Supports image query tracking, image swaps (and tracking),
-    and image search per parent class.  Additionally, images from base can be omitted
-    per the omitted data member, which can later be updated. Object retains omitted images,
-    just does not display them. Images are only omitted from even indexes.
-*/
-
-/* IMPLEMENTATION INVARIANT: 
-    Class is required to have a display function that returns image list (uint) 
-    per the interface contract.
+/* 
+    Used by the DBInitializer to generate random numbers for
+    linking tables.
 */
 
 using System;
