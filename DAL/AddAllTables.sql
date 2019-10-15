@@ -8,11 +8,12 @@ SET QUOTED_IDENTIFIER ON
 
 -- =============================================
 -- Author:		Sanders, Kriston
--- Create date: 	8/8/2019
+-- Create date: 	4/4/2019
 -- Last update: 	9/29/2019
 -- Description:	Spending accounts may have different types,
 --				such as personal or shared
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='AccountType' and xtype='U')
 CREATE TABLE [dbo].[AccountType](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[TypeName] [varchar](50) NOT NULL
@@ -31,6 +32,7 @@ CREATE TABLE [dbo].[AccountType](
 --				May be flagged as deleted but should remain in table
 --				for auditing purposes.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Account' and xtype='U')
 CREATE TABLE [dbo].[Account](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[AccountTypeID] [int] NOT NULL,
@@ -58,6 +60,7 @@ ALTER TABLE [dbo].[Account] CHECK CONSTRAINT [FK_Account_AccountType];
 -- Description:	Link a code to shared accounts used
 --				by accounting/controller office for credits/debits
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='BillingCode' and xtype='U')
 CREATE TABLE [dbo].[BillingCode](
 	[Code] [int] NOT NULL,
 	[AccountID] [int] NOT NULL
@@ -93,6 +96,7 @@ ALTER TABLE [dbo].[BillingCode] CHECK CONSTRAINT [FK_BillingCode_Account];
 -- Description:	Support for multiple locations 
 --				and type caterization
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='LocationType' and xtype='U')
 CREATE TABLE [dbo].[LocationType](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[Type] [varchar](50) NOT NULL
@@ -109,6 +113,7 @@ CREATE TABLE [dbo].[LocationType](
 -- Last update: 	9/29/2019
 -- Description:	Used for identifying spending location
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Location' and xtype='U')
 CREATE TABLE [dbo].[Location](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[TypeID] [int] NOT NULL,
@@ -139,6 +144,7 @@ ALTER TABLE [dbo].[Location] CHECK CONSTRAINT [FK_Location_LocationType];
 --				for differing settings, permissions, 
 --				statistics, fund allocation, etc.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Role' and xtype='U')
 CREATE TABLE [dbo].[Role](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[Name] [varchar](50) NOT NULL
@@ -155,6 +161,7 @@ CREATE TABLE [dbo].[Role](
 -- Last update: 	9/29/2019
 -- Description:	Users able to access the system
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='User' and xtype='U')
 CREATE TABLE [dbo].[User](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[Username] [varchar](50) NOT NULL,
@@ -184,6 +191,7 @@ CREATE TABLE [dbo].[User](
 -- Create date: 	8/5/2019
 -- Last update: 	9/29/2019
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='UserAccount' and xtype='U')
 CREATE TABLE [dbo].[UserAccount](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[UserID] [int] NOT NULL,
@@ -224,6 +232,7 @@ ALTER TABLE [dbo].[UserAccount] CHECK CONSTRAINT [FK_UserAccount_User];
 --				Users may hold more than one roles
 --				in many-to-many relationship.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='UserRole' and xtype='U')
 CREATE TABLE [dbo].[UserRole](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[UserID] [int] NOT NULL,
@@ -256,6 +265,7 @@ ALTER TABLE [dbo].[UserRole] CHECK CONSTRAINT [FK_UserRole_User];
 -- Description:	Managers may submit requests to alter
 --				access to the system or to accounts.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='RequestType' and xtype='U')
 CREATE TABLE [dbo].[RequestType](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[Type] [varchar](50) NOT NULL,
@@ -270,7 +280,7 @@ CREATE TABLE [dbo].[RequestType](
 -- =============================================
 -- Author:		Sanders, Kriston
 -- Create date: 	8/8/2019
--- Last update: 	9/29/2019
+-- Last update: 	10/15/2019
 -- Description:	Logs changes to the system for autiding.
 --				Requests may be accepted or rejected.
 --				ResolutionNotes can be used to explain why 
@@ -281,6 +291,7 @@ CREATE TABLE [dbo].[RequestType](
 --				,such as linking requests together,
 --				as defined by system admin.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='RequestLog' and xtype='U')
 CREATE TABLE [dbo].[RequestLog](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[RequestDateTime] [datetime] NOT NULL,
@@ -288,7 +299,7 @@ CREATE TABLE [dbo].[RequestLog](
 	[IsRejected] [bit] NULL,
 	[ResolutionNotes] [varchar](255) NULL,
 	[ResolvedByUserID] [int] NULL,
-	[Type] [int] NOT NULL,
+	[TypeID] [int] NOT NULL,
 	[Attribute] [varchar](50) NULL,
 	[AffectedUserID] [int] NULL,
 	[RequestedByUserID] [int] NOT NULL
@@ -335,6 +346,7 @@ ALTER TABLE [dbo].[RequestLog] CHECK CONSTRAINT [FK_Resolved_By];
 --				Users may be linked to multiple accounts
 --				in a many-to-many relationship.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='Manager' and xtype='U')
 CREATE TABLE [dbo].[Manager](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[UserID] [int] NOT NULL,
@@ -369,6 +381,7 @@ ALTER TABLE [dbo].[Manager] CHECK CONSTRAINT [FK_Manager_User];
 --				item purchased, and optional attributes for further detail
 --				such as quantity, type, etc.
 -- =============================================
+IF NOT EXISTS (SELECT * FROM sysobjects WHERE name='UsageLog' and xtype='U')
 CREATE TABLE [dbo].[UsageLog](
 	[ID] [int] IDENTITY(1000,1) NOT NULL,
 	[DateTime] [datetime] NOT NULL,

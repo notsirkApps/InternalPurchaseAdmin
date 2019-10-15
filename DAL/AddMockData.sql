@@ -29,14 +29,14 @@ insert into [dbo].[Account] (AccountTypeID, Name, CreatedDateTime) values (1001,
 INSERT INTO [dbo].[RequestType]
            ([Type], [Description])
      VALUES
-           ('ImportUser', 'Imports user into system'),
-		   ('DeleteUser', 'Deletes user from system'),
-		   ('AddUserToShared', 'Adds user to shared account'),
-		   ('RemoveUserFromShared', 'Removes user from shared account'),
-		   ('AddManagerOfShared', 'Adds manager for shared account'),
-		   ('RemoveManagerOfShared', 'Removes manager for shared account'),
-		   ('AddPersonal', 'Adds personal account for created user'),
-		   ('RemovePersonal', 'Removes personal account for deleted user')
+           ('ImportUser', 'Import user into system'),
+		   ('DeleteUser', 'Delete user from system'),
+		   ('AddUserToShared', 'Add user to shared account'),
+		   ('RemoveUserFromShared', 'Remove user from shared account'),
+		   ('AddManagerOfShared', 'Add manager for shared account'),
+		   ('RemoveManagerOfShared', 'Remove manager for shared account'),
+		   ('AddPersonal', 'Add personal account for created user'),
+		   ('RemovePersonal', 'Remove personal account for deleted user')
 
 
 
