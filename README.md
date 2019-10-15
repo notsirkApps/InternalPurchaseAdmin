@@ -11,4 +11,4 @@ Internal Purchase Admin is intended to assist budget managers in lare organizati
 - Track account membership changes<br>
 
 <h2> Status </h2>
-At this stage, only the data access layer that creates SQL Server tables and seeds them with data has been uploaded. This is to avoid the need to weed through auto-generated code to find original code that showcases the skills of the author. As the project becomes more complete, additional files will be added so that the application can be run.
+At this stage, only the data access layer that creates SQL Server tables and seeds them with data, along with the models, have been uploaded. This is to avoid the need to weed through auto-generated code to find original code that showcases the skills of the author. As the project becomes more complete, additional files will be added so that the application can be run.
